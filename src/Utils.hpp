@@ -230,7 +230,7 @@ std::vector<ParamCombination> makeCombinations(
 
 void writeAndCompressCSV(const std::string& outputDir, int n, const std::vector<std::string>& csvData) {
     // Construct the output CSV file path
-    std::string outputCsvPath = outputDir + "/expected_steps_" + std::to_string(n) + ".csv";
+    std::string outputCsvPath = outputDir + "../output/expected_steps_" + std::to_string(n) + ".csv";
 
     // Write results to CSV
     std::ofstream csvFile(outputCsvPath);

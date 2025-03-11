@@ -2,3 +2,4 @@ build/
 output/
 *.csv
 .clangd
+.cache/

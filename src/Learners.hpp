@@ -40,7 +40,7 @@ private:
   // these weights do not change during learning
   std::vector<double> conformityBaseWeights;
   std::vector<double> payoffBaseWeights;
-  std::vector<double> RandomBaseWeights;
+  std::vector<double> randomBaseWeights;
 
 public:
   Learners(const std::vector<std::vector<size_t>> &adjMatrix,

@@ -1,7 +1,13 @@
 #include "Learners.hpp"
+#include "Utils.hpp"
+
 #include <algorithm>
 #include <numeric>
 #include <random>
+#include <fstream>
+#include <omp.h>
+#include <iostream>
+
 
 std::vector<double>
 generatePayoffs(const std::vector<std::vector<size_t>> &adjMatrix,
@@ -9,6 +15,32 @@ generatePayoffs(const std::vector<std::vector<size_t>> &adjMatrix,
   size_t n = adjMatrix.size();
   size_t non_root_count = n - 1;
   std::vector<double> payoffs(n, 0.0);
+
+  if (n == 121) {
+    std::string filePath = "../data/payoffs_121.csv";
+    std::ifstream file(filePath);
+    
+    if (!file.is_open()) {
+        throw std::runtime_error("Could not open payoffs file: " + filePath);
+    }
+    
+    std::string line;
+    size_t index = 0;
+    
+    while (std::getline(file, line) && index < n) {
+        try {
+            payoffs[index++] = std::stod(line);
+        } catch (const std::exception& e) {
+            throw std::runtime_error("Error parsing payoff value at line " + std::to_string(index) + ": " + e.what());
+        }
+    }
+    
+    if (index < n) {
+        throw std::runtime_error("Not enough payoff values in file: expected " + std::to_string(n) + ", got " + std::to_string(index));
+    }
+    
+    return payoffs;
+}
 
   // Root trait always has zero payoff
   payoffs[0] = 0.0;
@@ -124,7 +156,7 @@ Learners::Learners(const std::vector<std::vector<size_t>> &adjMatrix,
   stateFrequencies = calculateStateFrequencies(demoRepertoires);
   conformityBaseWeights = conformityWeights();
   payoffBaseWeights = payoffWeights();
-  RandomBaseWeights = std::vector<double>(adjMatrix.size(), 1.0);
+  randomBaseWeights = traitFrequencies;
 };
 
 bool Learners::isLearnable(size_t trait, size_t agentIndex) {
@@ -171,6 +203,7 @@ void Learners::updateRepertoire(std::vector<double> weights, size_t agentIndex,
 void Learners::learn() {
   size_t maxAge = adjMatrix.size() * 2;
   size_t numAgents = repertoires.size();
+  size_t maxAttempts = maxAge; // Maximum learning attempts per agent
 
   meanPayoff.resize(maxAge, 0.0);
   meanSuccessRate.resize(maxAge, 0.0);
@@ -179,87 +212,114 @@ void Learners::learn() {
   std::vector<double> totalPayoffs(maxAge, 0.0);
   std::vector<size_t> successCounts(maxAge, 0);
   std::vector<size_t> attemptCounts(maxAge, 0);
-  std::vector<size_t> completionTimes;
-  completionTimes.reserve(numAgents);
+  
+  // Using a vector of vectors to avoid race conditions during parallel execution
+  std::vector<std::vector<size_t>> threadCompletionTimes(omp_get_max_threads());
+  
+  #pragma omp parallel
+  {
+    // Each thread will have its local accumulation variables to prevent false sharing
+    std::vector<double> localTotalPayoffs(maxAge, 0.0);
+    std::vector<size_t> localSuccessCounts(maxAge, 0);
+    std::vector<size_t> localAttemptCounts(maxAge, 0);
+    int threadId = omp_get_thread_num();
+    
+    // Parallelize the loop over agents
+    #pragma omp for
+    for (size_t agentIndex = 0; agentIndex < numAgents; agentIndex++) {
+      // Create a thread-local random generator with a unique seed
+      std::random_device rd;
+      std::mt19937 gen(rd() + agentIndex); // Add agentIndex to make seeds different
 
-  for (size_t agentIndex = 0; agentIndex < numAgents; agentIndex++) {
-    std::random_device rd;
-    std::mt19937 gen(rd());
+      size_t age = 0;
+      bool isOmniscient = false;
 
-    size_t age = 0;
-    bool isOmniscient = false;
-
-    while (!isOmniscient) {
-      // Calculate and store current payoff for this age (only if age < maxAge)
-      if (age < maxAge) {
-        double currentPayoff = calculateAgentPayoff(agentIndex);
-
-        totalPayoffs[age] += currentPayoff;
-        attemptCounts[age]++;
-      }
-
-      std::vector<double> weights;
-      switch (strategy) {
-      case Strategy::Prestige:
-        weights = prestigeWeights(agentIndex);
-        break;
-      case Strategy::Proximal:
-        weights = proximalWeights(agentIndex);
-        break;
-      case Strategy::Conformity:
-        weights = conformityBaseWeights;
-        break;
-      case Strategy::Payoff:
-        weights = payoffBaseWeights;
-        break;
-      case Strategy::Random:
-        weights = RandomBaseWeights;
-      }
-
-      // Mask out already learned traits
-      for (size_t i = 0; i < repertoires[agentIndex].size(); i++) {
-        if (repertoires[agentIndex][i] == 1) {
-          weights[i] = 0.0;
-        }
-      }
-
-      // Check if all traits are learned (omniscient)
-      if (std::all_of(repertoires[agentIndex].begin(),
-                      repertoires[agentIndex].end(),
-                      [](size_t trait) { return trait == 1; })) {
-        isOmniscient = true;
-        completionTimes.push_back(age);
-        break;
-      }
-
-      // Normalize weights
-      double total = std::accumulate(weights.begin(), weights.end(), 0.0);
-      if (total > 0.0) {
-        std::ranges::transform(weights, weights.begin(),
-                               [total](double w) { return w / total; });
-
-        // Try to learn a new trait
-        bool success = false;
-        updateRepertoire(weights, agentIndex, gen, success);
-
-        // Track success rate (only if age < maxAge)
+      while (!isOmniscient && age < maxAttempts) {
+        // Calculate and store current payoff for this age (only if age < maxAge)
         if (age < maxAge) {
+          double currentPayoff = calculateAgentPayoff(agentIndex);
 
-          if (success) {
-            successCounts[age]++;
+          localTotalPayoffs[age] += currentPayoff;
+          localAttemptCounts[age]++;
+        }
+
+        std::vector<double> weights;
+        switch (strategy) {
+        case Strategy::Prestige:
+          weights = prestigeWeights(agentIndex);
+          break;
+        case Strategy::Proximal:
+          weights = proximalWeights(agentIndex);
+          break;
+        case Strategy::Conformity:
+          weights = conformityBaseWeights;
+          break;
+        case Strategy::Payoff:
+          weights = payoffBaseWeights;
+          break;
+        case Strategy::Random:
+          weights = randomBaseWeights;
+        }
+
+        // Mask out already learned traits
+        for (size_t i = 0; i < repertoires[agentIndex].size(); i++) {
+          if (repertoires[agentIndex][i] == 1) {
+            weights[i] = 0.0;
           }
         }
-      } else {
-        // No valid traits to learn, but not omniscient yet
-        // This might happen if prerequisites make some traits unreachable
-        isOmniscient = true; // Exit the loop
 
-        completionTimes.push_back(age);
-        break;
+        // Check if all traits are learned (omniscient)
+        if (std::all_of(repertoires[agentIndex].begin(),
+                        repertoires[agentIndex].end(),
+                        [](size_t trait) { return trait == 1; })) {
+          isOmniscient = true;
+          threadCompletionTimes[threadId].push_back(age);
+          break;
+        }
+
+        // Normalize weights
+        double total = std::accumulate(weights.begin(), weights.end(), 0.0);
+        if (total > 0.0) {
+          std::ranges::transform(weights, weights.begin(),
+                                 [total](double w) { return w / total; });
+
+          // Try to learn a new trait
+          bool success = false;
+          updateRepertoire(weights, agentIndex, gen, success);
+
+          // Track success rate (only if age < maxAge)
+          if (age < maxAge) {
+            if (success) {
+              localSuccessCounts[age]++;
+            }
+          }
+        } else {
+          // No valid traits to learn, but not omniscient yet
+          // This might happen if prerequisites make some traits unreachable
+          isOmniscient = true; // Exit the loop
+          threadCompletionTimes[threadId].push_back(age);
+          break;
+        }
+
+        age++;
       }
-
-      age++;
     }
+    
+    // Merge thread-local results into shared results
+    #pragma omp critical
+    {
+      for (size_t age = 0; age < maxAge; age++) {
+        totalPayoffs[age] += localTotalPayoffs[age];
+        successCounts[age] += localSuccessCounts[age];
+        attemptCounts[age] += localAttemptCounts[age];
+      }
+    }
+  }
+  
+  // Merge completion times from all threads into a single vector
+  std::vector<size_t> completionTimes;
+  for (const auto& threadTimes : threadCompletionTimes) {
+    completionTimes.insert(completionTimes.end(), threadTimes.begin(), threadTimes.end());
   }
 
   // Compute mean metrics
@@ -267,16 +327,15 @@ void Learners::learn() {
     if (attemptCounts[age] > 0) {
       meanPayoff[age] = totalPayoffs[age] / attemptCounts[age];
       meanSuccessRate[age] =
-          attemptCounts[age] > 0
-              ? static_cast<double>(successCounts[age]) / attemptCounts[age]
-              : 0.0;
+          static_cast<double>(successCounts[age]) / attemptCounts[age];
     }
   }
 
-  // Calculate mean completion time
+  // Calculate mean completion time only for agents who achieved omniscience
   if (!completionTimes.empty()) {
     meanCompletionTime =
         std::accumulate(completionTimes.begin(), completionTimes.end(), 0.0) /
         completionTimes.size();
   }
+  std::cout << "Strategy" << strategyToString(strategy) << " completed" << '\n';
 }

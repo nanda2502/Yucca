@@ -1,0 +1,720 @@
+slurmstepd: error: *** JOB 10468408 ON tcn977 CANCELLED AT 2025-03-12T15:28:24 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468408
+Array Job ID: 10468405_2
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-03:08:48 core-walltime
+Job Wall-clock time: 00:53:29
+Memory Utilized: 42.05 MB
+Memory Efficiency: 0.01% of 336.00 GB
+slurmstepd: error: *** JOB 10468411 ON tcn1002 CANCELLED AT 2025-03-12T15:28:36 ***
+slurmstepd: error: *** JOB 10468412 ON tcn1006 CANCELLED AT 2025-03-12T15:28:38 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468411
+Array Job ID: 10468405_5
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-03:47:12 core-walltime
+Job Wall-clock time: 00:53:41
+Memory Utilized: 41.07 MB
+Memory Efficiency: 0.01% of 336.00 GB
+slurmstepd: error: *** JOB 10468413 ON tcn1019 CANCELLED AT 2025-03-12T15:28:39 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468412
+Array Job ID: 10468405_6
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-03:53:36 core-walltime
+Job Wall-clock time: 00:53:43
+Memory Utilized: 34.26 MB
+Memory Efficiency: 0.01% of 336.00 GB
+slurmstepd: error: *** JOB 10468414 ON tcn1020 CANCELLED AT 2025-03-12T15:28:41 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468413
+Array Job ID: 10468405_7
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-03:56:48 core-walltime
+Job Wall-clock time: 00:53:44
+Memory Utilized: 0.00 MB (estimated maximum)
+Memory Efficiency: 0.00% of 336.00 GB (1.75 GB/core)
+slurmstepd: error: *** JOB 10468415 ON tcn1021 CANCELLED AT 2025-03-12T15:28:43 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468414
+Array Job ID: 10468405_8
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-04:03:12 core-walltime
+Job Wall-clock time: 00:53:46
+Memory Utilized: 31.73 MB
+Memory Efficiency: 0.01% of 336.00 GB
+
+JOB STATISTICS
+==============
+Job ID: 10468415
+Array Job ID: 10468405_9
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-04:09:36 core-walltime
+Job Wall-clock time: 00:53:48
+Memory Utilized: 30.90 MB
+Memory Efficiency: 0.01% of 336.00 GB
+slurmstepd: error: *** JOB 10468416 ON tcn1024 CANCELLED AT 2025-03-12T15:28:46 ***
+slurmstepd: error: *** JOB 10468417 ON tcn814 CANCELLED AT 2025-03-12T15:28:48 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468416
+Array Job ID: 10468405_10
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-04:19:12 core-walltime
+Job Wall-clock time: 00:53:51
+Memory Utilized: 31.39 MB
+Memory Efficiency: 0.01% of 336.00 GB
+slurmstepd: error: *** JOB 10468418 ON tcn815 CANCELLED AT 2025-03-12T15:28:49 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468417
+Array Job ID: 10468405_11
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-04:25:36 core-walltime
+Job Wall-clock time: 00:53:53
+Memory Utilized: 32.69 MB
+Memory Efficiency: 0.01% of 336.00 GB
+slurmstepd: error: *** JOB 10468419 ON tcn816 CANCELLED AT 2025-03-12T15:28:51 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468418
+Array Job ID: 10468405_12
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-04:28:48 core-walltime
+Job Wall-clock time: 00:53:54
+Memory Utilized: 29.71 MB
+Memory Efficiency: 0.01% of 336.00 GB
+
+JOB STATISTICS
+==============
+Job ID: 10468419
+Array Job ID: 10468405_13
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-04:35:12 core-walltime
+Job Wall-clock time: 00:53:56
+Memory Utilized: 22.21 MB
+Memory Efficiency: 0.01% of 336.00 GB
+slurmstepd: error: *** JOB 10468420 ON tcn817 CANCELLED AT 2025-03-12T15:28:54 ***
+slurmstepd: error: *** JOB 10468421 ON tcn819 CANCELLED AT 2025-03-12T15:28:56 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468420
+Array Job ID: 10468405_14
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-04:44:48 core-walltime
+Job Wall-clock time: 00:53:59
+Memory Utilized: 0.00 MB (estimated maximum)
+Memory Efficiency: 0.00% of 336.00 GB (1.75 GB/core)
+slurmstepd: error: *** JOB 10468422 ON tcn820 CANCELLED AT 2025-03-12T15:28:58 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468421
+Array Job ID: 10468405_15
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-04:51:12 core-walltime
+Job Wall-clock time: 00:54:01
+Memory Utilized: 29.61 MB
+Memory Efficiency: 0.01% of 336.00 GB
+
+JOB STATISTICS
+==============
+Job ID: 10468422
+Array Job ID: 10468405_16
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-04:57:36 core-walltime
+Job Wall-clock time: 00:54:03
+Memory Utilized: 29.01 MB
+Memory Efficiency: 0.01% of 336.00 GB
+slurmstepd: error: *** JOB 10468423 ON tcn821 CANCELLED AT 2025-03-12T15:28:59 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468423
+Array Job ID: 10468405_17
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-05:00:48 core-walltime
+Job Wall-clock time: 00:54:04
+Memory Utilized: 25.01 MB
+Memory Efficiency: 0.01% of 336.00 GB
+slurmstepd: error: *** JOB 10468424 ON tcn822 CANCELLED AT 2025-03-12T15:29:02 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468424
+Array Job ID: 10468405_18
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-05:10:24 core-walltime
+Job Wall-clock time: 00:54:07
+Memory Utilized: 25.45 MB
+Memory Efficiency: 0.01% of 336.00 GB
+slurmstepd: error: *** JOB 10468425 ON tcn823 CANCELLED AT 2025-03-12T15:29:04 ***
+slurmstepd: error: *** JOB 10468426 ON tcn854 CANCELLED AT 2025-03-12T15:29:06 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468425
+Array Job ID: 10468405_19
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-05:16:48 core-walltime
+Job Wall-clock time: 00:54:09
+Memory Utilized: 19.38 MB
+Memory Efficiency: 0.01% of 336.00 GB
+
+JOB STATISTICS
+==============
+Job ID: 10468426
+Array Job ID: 10468405_20
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-05:23:12 core-walltime
+Job Wall-clock time: 00:54:11
+Memory Utilized: 25.49 MB
+Memory Efficiency: 0.01% of 336.00 GB
+slurmstepd: error: *** JOB 10468427 ON tcn855 CANCELLED AT 2025-03-12T15:29:08 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468427
+Array Job ID: 10468405_21
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-05:29:36 core-walltime
+Job Wall-clock time: 00:54:13
+Memory Utilized: 23.25 MB
+Memory Efficiency: 0.01% of 336.00 GB
+slurmstepd: error: *** JOB 10468428 ON tcn856 CANCELLED AT 2025-03-12T15:29:11 ***
+slurmstepd: error: *** JOB 10468429 ON tcn857 CANCELLED AT 2025-03-12T15:29:13 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468428
+Array Job ID: 10468405_22
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-05:39:12 core-walltime
+Job Wall-clock time: 00:54:16
+Memory Utilized: 22.21 MB
+Memory Efficiency: 0.01% of 336.00 GB
+slurmstepd: error: *** JOB 10468430 ON tcn858 CANCELLED AT 2025-03-12T15:29:14 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468429
+Array Job ID: 10468405_23
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-05:45:36 core-walltime
+Job Wall-clock time: 00:54:18
+Memory Utilized: 22.48 MB
+Memory Efficiency: 0.01% of 336.00 GB
+slurmstepd: error: *** JOB 10468431 ON tcn859 CANCELLED AT 2025-03-12T15:29:15 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468430
+Array Job ID: 10468405_24
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-05:48:48 core-walltime
+Job Wall-clock time: 00:54:19
+Memory Utilized: 25.53 MB
+Memory Efficiency: 0.01% of 336.00 GB
+slurmstepd: error: *** JOB 10468432 ON tcn860 CANCELLED AT 2025-03-12T15:29:16 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468431
+Array Job ID: 10468405_25
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-05:52:00 core-walltime
+Job Wall-clock time: 00:54:20
+Memory Utilized: 24.04 MB
+Memory Efficiency: 0.01% of 336.00 GB
+
+JOB STATISTICS
+==============
+Job ID: 10468432
+Array Job ID: 10468405_26
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-05:55:12 core-walltime
+Job Wall-clock time: 00:54:21
+Memory Utilized: 22.52 MB
+Memory Efficiency: 0.01% of 336.00 GB
+slurmstepd: error: *** JOB 10468433 ON tcn861 CANCELLED AT 2025-03-12T15:29:19 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468433
+Array Job ID: 10468405_27
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-06:04:48 core-walltime
+Job Wall-clock time: 00:54:24
+Memory Utilized: 0.00 MB (estimated maximum)
+Memory Efficiency: 0.00% of 336.00 GB (1.75 GB/core)
+slurmstepd: error: *** JOB 10468434 ON tcn862 CANCELLED AT 2025-03-12T15:29:22 ***
+slurmstepd: error: *** JOB 10468435 ON tcn863 CANCELLED AT 2025-03-12T15:29:23 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468434
+Array Job ID: 10468405_28
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-06:14:24 core-walltime
+Job Wall-clock time: 00:54:27
+Memory Utilized: 22.45 MB
+Memory Efficiency: 0.01% of 336.00 GB
+
+JOB STATISTICS
+==============
+Job ID: 10468435
+Array Job ID: 10468405_29
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-06:17:36 core-walltime
+Job Wall-clock time: 00:54:28
+Memory Utilized: 0.00 MB (estimated maximum)
+Memory Efficiency: 0.00% of 336.00 GB (1.75 GB/core)
+slurmstepd: error: *** JOB 10468436 ON tcn864 CANCELLED AT 2025-03-12T15:29:26 ***
+slurmstepd: error: *** JOB 10468437 ON tcn865 CANCELLED AT 2025-03-12T15:29:28 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468436
+Array Job ID: 10468405_30
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-06:27:12 core-walltime
+Job Wall-clock time: 00:54:31
+Memory Utilized: 24.01 MB
+Memory Efficiency: 0.01% of 336.00 GB
+slurmstepd: error: *** JOB 10468438 ON tcn866 CANCELLED AT 2025-03-12T15:29:29 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468437
+Array Job ID: 10468405_31
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-06:33:36 core-walltime
+Job Wall-clock time: 00:54:33
+Memory Utilized: 23.93 MB
+Memory Efficiency: 0.01% of 336.00 GB
+
+JOB STATISTICS
+==============
+Job ID: 10468438
+Array Job ID: 10468405_32
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-06:36:48 core-walltime
+Job Wall-clock time: 00:54:34
+Memory Utilized: 23.99 MB
+Memory Efficiency: 0.01% of 336.00 GB
+slurmstepd: error: *** JOB 10468440 ON tcn868 CANCELLED AT 2025-03-12T15:29:33 ***
+slurmstepd: error: *** JOB 10468441 ON tcn869 CANCELLED AT 2025-03-12T15:29:35 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468440
+Array Job ID: 10468405_34
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-06:49:36 core-walltime
+Job Wall-clock time: 00:54:38
+Memory Utilized: 25.76 MB
+Memory Efficiency: 0.01% of 336.00 GB
+slurmstepd: error: *** JOB 10468442 ON tcn870 CANCELLED AT 2025-03-12T15:29:36 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468441
+Array Job ID: 10468405_35
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-06:56:00 core-walltime
+Job Wall-clock time: 00:54:40
+Memory Utilized: 24.02 MB
+Memory Efficiency: 0.01% of 336.00 GB
+slurmstepd: error: *** JOB 10468443 ON tcn871 CANCELLED AT 2025-03-12T15:29:37 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468442
+Array Job ID: 10468405_36
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-06:59:12 core-walltime
+Job Wall-clock time: 00:54:41
+Memory Utilized: 25.99 MB
+Memory Efficiency: 0.01% of 336.00 GB
+slurmstepd: error: *** JOB 10468444 ON tcn872 CANCELLED AT 2025-03-12T15:29:39 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468443
+Array Job ID: 10468405_37
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-07:02:24 core-walltime
+Job Wall-clock time: 00:54:42
+Memory Utilized: 0.00 MB (estimated maximum)
+Memory Efficiency: 0.00% of 336.00 GB (1.75 GB/core)
+slurmstepd: error: *** JOB 10468445 ON tcn873 CANCELLED AT 2025-03-12T15:29:40 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468444
+Array Job ID: 10468405_38
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-07:08:48 core-walltime
+Job Wall-clock time: 00:54:44
+Memory Utilized: 25.46 MB
+Memory Efficiency: 0.01% of 336.00 GB
+
+JOB STATISTICS
+==============
+Job ID: 10468445
+Array Job ID: 10468405_39
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-07:12:00 core-walltime
+Job Wall-clock time: 00:54:45
+Memory Utilized: 23.94 MB
+Memory Efficiency: 0.01% of 336.00 GB
+slurmstepd: error: *** JOB 10468446 ON tcn874 CANCELLED AT 2025-03-12T15:29:43 ***
+slurmstepd: error: *** JOB 10468447 ON tcn875 CANCELLED AT 2025-03-12T15:29:44 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468446
+Array Job ID: 10468405_40
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-07:21:36 core-walltime
+Job Wall-clock time: 00:54:48
+Memory Utilized: 26.21 MB
+Memory Efficiency: 0.01% of 336.00 GB
+slurmstepd: error: *** JOB 10468448 ON tcn877 CANCELLED AT 2025-03-12T15:29:46 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468447
+Array Job ID: 10468405_41
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-07:24:48 core-walltime
+Job Wall-clock time: 00:54:49
+Memory Utilized: 25.53 MB
+Memory Efficiency: 0.01% of 336.00 GB
+slurmstepd: error: *** JOB 10468449 ON tcn878 CANCELLED AT 2025-03-12T15:29:47 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468448
+Array Job ID: 10468405_42
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-07:31:12 core-walltime
+Job Wall-clock time: 00:54:51
+Memory Utilized: 27.03 MB
+Memory Efficiency: 0.01% of 336.00 GB
+
+JOB STATISTICS
+==============
+Job ID: 10468449
+Array Job ID: 10468405_43
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-07:34:24 core-walltime
+Job Wall-clock time: 00:54:52
+Memory Utilized: 25.46 MB
+Memory Efficiency: 0.01% of 336.00 GB
+slurmstepd: error: *** JOB 10468450 ON tcn879 CANCELLED AT 2025-03-12T15:29:52 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468450
+Array Job ID: 10468405_44
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-07:50:24 core-walltime
+Job Wall-clock time: 00:54:57
+Memory Utilized: 26.17 MB
+Memory Efficiency: 0.01% of 336.00 GB
+slurmstepd: error: *** JOB 10468410 ON tcn981 CANCELLED AT 2025-03-12T15:30:04 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468410
+Array Job ID: 10468405_4
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-08:28:48 core-walltime
+Job Wall-clock time: 00:55:09
+Memory Utilized: 39.13 MB
+Memory Efficiency: 0.01% of 336.00 GB
+slurmstepd: error: *** JOB 10468451 ON tcn880 CANCELLED AT 2025-03-12T15:30:15 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468451
+Array Job ID: 10468405_45
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-09:04:00 core-walltime
+Job Wall-clock time: 00:55:20
+Memory Utilized: 27.07 MB
+Memory Efficiency: 0.01% of 336.00 GB
+slurmstepd: error: *** JOB 10468452 ON tcn881 CANCELLED AT 2025-03-12T15:30:22 ***
+slurmstepd: error: *** JOB 10468453 ON tcn882 CANCELLED AT 2025-03-12T15:30:23 ***
+
+JOB STATISTICS
+==============
+Job ID: 10468452
+Array Job ID: 10468405_46
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-09:26:24 core-walltime
+Job Wall-clock time: 00:55:27
+Memory Utilized: 23.97 MB
+Memory Efficiency: 0.01% of 336.00 GB
+
+JOB STATISTICS
+==============
+Job ID: 10468453
+Array Job ID: 10468405_47
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: CANCELLED (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 7-09:29:36 core-walltime
+Job Wall-clock time: 00:55:28
+Memory Utilized: 25.46 MB
+Memory Efficiency: 0.01% of 336.00 GB
+slurmstepd: error: *** JOB 10468405 ON tcn883 CANCELLED AT 2025-03-12T19:20:03 DUE TO TIME LIMIT ***
+
+JOB STATISTICS
+==============
+Job ID: 10468405
+Array Job ID: 10468405_48
+Cluster: snellius
+User/Group: njafarian/njafarian
+State: TIMEOUT (exit code 0)
+Nodes: 1
+Cores per node: 192
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 38-00:25:36 core-walltime
+Job Wall-clock time: 04:45:08
+Memory Utilized: 27.08 MB
+Memory Efficiency: 0.01% of 336.00 GB

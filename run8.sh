@@ -4,7 +4,7 @@
 #SBATCH --nodes=8
 #SBATCH --ntasks-per-node=32
 #SBATCH --cpus-per-task=6
-#SBATCH -t 00:45:00
+#SBATCH -t 01:45:00
 #SBATCH --output=slurm-%A.out
 
 export OMP_NUM_THREADS=6
@@ -29,7 +29,7 @@ touch $running_pids
 # Launch all tasks for this array job at once since we have enough CPU capacity
 for i in $(seq $start $end); do
     if [ ! -f "../output/expected_steps_${i}.csv.gz" ]; then
-        ./yucca "$i" &
+        ./yucca "$i" 8&
         echo $! >> $running_pids
     fi
 done

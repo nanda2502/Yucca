@@ -1,4 +1,5 @@
 #include "Population.hpp"
+#include "Params.hpp"
 #include "Learners.hpp"
 #include "Types.hpp"
 #include "Utils.hpp"
@@ -8,39 +9,39 @@
 #include <cmath>
 
 int main(int argc, char* argv[]) {
-    if (argc != 2) {
-        std::cerr << "Usage: " << argv[0] << " <adjacency_matrix_index>" << std::endl;
+    if (argc != 3) {
+        std::cerr << "Usage: " << argv[0] << " <adjacency_matrix_index> <num_nodes>" << std::endl;
         return 1;
     }
     int adj_int = std::stoi(argv[1]);
+    int num_nodes = std::stoi(argv[2]);
 
-    
-    auto allMatrices = readAdjacencyMatrices();
+    auto allMatrices = readAdjacencyMatrices(num_nodes);
     std::vector<std::vector<std::vector<size_t>>> matrices(1, allMatrices[adj_int]);
 
     // Simulate background population
-    Population population(matrices[adj_int]);
+    Population population(matrices[0]);
     population.learn();
-
-
 
     std::vector<ParamCombination> combinations = makeCombinations(matrices, 1); 
 
     std::cout << "Number of combinations: " << combinations.size() << '\n';
+    std::cout << "Number of shuffles: " << combinations[0].shuffleSequences.size() << '\n';
     std::vector<AccumulatedResult> accumulatedResults(combinations.size());
 
     std::vector<size_t> indices(combinations.size());
     std::iota(indices.begin(), indices.end(), 0);
 
-    #pragma omp parallel for
     for (size_t idx : indices) {
         const ParamCombination& comb = combinations[idx];
 
-        std::vector<double> payoffs(comb.adjMatrix.size() * 2, 0.0);
-        std::vector<double> successRates(comb.adjMatrix.size() * 2, 0.0);
+        size_t maxSteps = comb.adjMatrix.size() * 2;
+        std::vector<double> payoffs(maxSteps, 0.0);
+        std::vector<double> successRates(maxSteps, 0.0);
         double completionTime = 0.0;
 
-        for (const auto& shuffleSequence : comb.shuffleSequences) {
+        for (size_t i = 0; i < comb.shuffleSequences.size(); ++i) {
+            const auto& shuffleSequence = comb.shuffleSequences[i];
             Learners learners = Learners(
                 comb.adjMatrix,
                 population.repertoires,
@@ -51,13 +52,19 @@ int main(int argc, char* argv[]) {
             learners.learn();
 
             // Average outcome measures over shuffles
-            for (size_t i = 0; i < payoffs.size(); ++i) {
-                payoffs[i] += learners.meanPayoff[i] / comb.shuffleSequences.size();
-                successRates[i] += learners.meanSuccessRate[i] / comb.shuffleSequences.size();
+            for (size_t j = 0; j < payoffs.size(); ++j) {
+                payoffs[j] += learners.meanPayoff[j] * comb.shuffleWeights[i];
+                successRates[j] += learners.meanSuccessRate[j] * comb.shuffleWeights[i];
             }
-            completionTime += learners.meanCompletionTime / comb.shuffleSequences.size();
+            completionTime += learners.meanCompletionTime * comb.shuffleWeights[i];
         }
-        accumulatedResults[idx] = {completionTime, payoffs, successRates};
+        AccumulatedResult result;
+
+        result.absorbing = completionTime;
+        result.payoffs = payoffs;
+        result.successRates = successRates;
+
+        accumulatedResults[idx] = result;
     }
 
     std::string csvHeader = "num_nodes,adj_mat,strategy,steps,step_payoff,step_transitions,slope,absorbing";
@@ -72,7 +79,7 @@ int main(int argc, char* argv[]) {
                 std::to_string(comb.adjMatrix.size()) + "," +
                 comb.adjMatrixBinary + "," +
                 strategyToString(comb.strategy) + "," +
-                std::to_string(step + 1) + "," + // add 1 since index is 0-based
+                std::to_string(step) + "," + // add 1 since index is 0-based
                 std::to_string(accumResult.payoffs[step]) + "," +
                 std::to_string(accumResult.successRates[step]) + "," +
                 std::to_string(comb.slope) + "," +

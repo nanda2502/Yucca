@@ -12,6 +12,7 @@ struct ParamCombination {
     Strategy strategy;
     double slope;
     std::vector<std::vector<size_t>> shuffleSequences;
+    std::vector<double> shuffleWeights;
 };
 
 struct AccumulatedResult {

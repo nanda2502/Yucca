@@ -5,14 +5,16 @@
 #include <vector>
 
 enum Strategy { Random, Payoff, Proximal, Prestige, Conformity };
+enum Dependency { Fixed, Variable }; // Dependency structure is either fixed per agent or variable per learning attempt
 
 struct ParamCombination {
-    std::vector<std::vector<size_t>> adjMatrix;
+    std::vector<std::vector<double>> adjMatrix;
     std::string adjMatrixBinary;
     Strategy strategy;
     double slope;
     std::vector<std::vector<size_t>> shuffleSequences;
     std::vector<double> shuffleWeights;
+    Dependency dependency = Dependency::Variable;
 };
 
 struct AccumulatedResult {

@@ -9,31 +9,58 @@
 #include <cmath>
 #include <unordered_set>
 #include <random>
+#include <sstream>
 
-inline std::string adjMatrixToBinaryString(const std::vector<std::vector<size_t>>& adjMatrix) {
-    std::string binaryString;
-    binaryString.reserve(adjMatrix.size() * adjMatrix[0].size());
-
-    for (const auto& row : adjMatrix) {
-        for (size_t entry : row) {
-            binaryString += entry == 1 ? '1' : '0';
+inline std::string adjMatrixToWeightedString(const std::vector<std::vector<double>>& adjMatrix) {
+    std::stringstream ss;
+    size_t n = adjMatrix.size();
+    
+    // Check if this is a binary matrix (containing only 0.0 and 1.0)
+    bool isBinary = true;
+    for (size_t i = 0; i < n && isBinary; ++i) {
+        for (size_t j = 0; j < n && isBinary; ++j) {
+            if (adjMatrix[i][j] != 0.0 && adjMatrix[i][j] != 1.0) {
+                isBinary = false;
+            }
         }
     }
-    return binaryString;
+    
+    if (isBinary) {
+        // For binary matrices, output as 0s and 1s directly
+        for (size_t i = 0; i < n; ++i) {
+            for (size_t j = 0; j < n; ++j) {
+                ss << (adjMatrix[i][j] == 1.0 ? '1' : '0');
+            }
+        }
+    } else {
+        // For weighted matrices, use the compact weighted format
+        for (size_t i = 0; i < n; ++i) {
+            for (size_t j = 0; j < n; ++j) {
+                // Clamp the value between 0 and 0.9
+                double clamped = std::max(0.0, std::min(0.9, adjMatrix[i][j]));
+                // Round to 1 decimal place and convert to single digit (0-9)
+                int digit = static_cast<int>(std::round(clamped * 10.0));
+                if (digit == 10) digit = 9; // Handle potential rounding edge case
+                ss << digit;
+            }
+        }
+    }
+    
+    return ss.str();
 }
 
-inline bool isUnconstrained(const std::vector<std::vector<size_t>>& adjMatrix) {
+inline bool isUnconstrained(const std::vector<std::vector<double>>& adjMatrix) {
     // Skip the first row
     for (size_t row = 1; row < adjMatrix.size(); ++row) {
         // Check each element in this row
-        for (size_t col : adjMatrix[row]) {
-            // If any element is true (nonzero), return false
-            if (col != 0) {
+        for (double weight : adjMatrix[row]) {
+            // If any element has a non-zero weight, return false
+            if (weight > 0.0) {
                 return false;
             }
         }
     }
-    // If we've checked all rows and found no nonzero values, return true
+    // If we've checked all rows and found no non-zero weights, return true
     return true;
 }
 
@@ -45,22 +72,28 @@ inline double factorial(size_t n) {
     return result;
 }
 
-inline std::string getNodeFingerprint(const std::vector<std::vector<size_t>>& adjMatrix, size_t nodeIdx) {
+inline std::string getNodeFingerprint(const std::vector<std::vector<double>>& adjMatrix, size_t nodeIdx) {
     std::string fingerprint = "U:";
     
-    // Add upstream nodes
+    // Add upstream nodes with rounded weights
     for (size_t i = 0; i < adjMatrix.size(); ++i) {
-        if (adjMatrix[i][nodeIdx] == 1) {
-            fingerprint += std::to_string(i) + ",";
+        double weight = adjMatrix[i][nodeIdx];
+        if (weight > 0.0) {
+            // Round the weight to nearest 0.1 increment
+            double roundedWeight = std::round(weight * 10.0) / 10.0;
+            fingerprint += std::to_string(i) + ":" + std::to_string(roundedWeight) + ",";
         }
     }
     
     fingerprint += "D:";
     
-    // Add downstream nodes
+    // Add downstream nodes with rounded weights
     for (size_t i = 0; i < adjMatrix[nodeIdx].size(); ++i) {
-        if (adjMatrix[nodeIdx][i] == 1) {
-            fingerprint += std::to_string(i) + ",";
+        double weight = adjMatrix[nodeIdx][i];
+        if (weight > 0.0) {
+            // Round the weight to nearest 0.1 increment
+            double roundedWeight = std::round(weight * 10.0) / 10.0;
+            fingerprint += std::to_string(i) + ":" + std::to_string(roundedWeight) + ",";
         }
     }
     
@@ -122,11 +155,11 @@ inline size_t estimateRequiredPermutations(int n,
         baseEstimate = std::max(baseEstimate, numClasses * 100);
     }
     
-    // Cap at 15,000
+    // Cap at 5,000
     return std::min(baseEstimate, static_cast<size_t>(5000));
 }
 
-inline ShuffleResult makeShuffles(const std::vector<std::vector<size_t>>& adjMatrix, int n) {
+inline ShuffleResult makeShuffles(const std::vector<std::vector<double>>& adjMatrix, int n) {
     ShuffleResult result;
     std::vector<std::vector<size_t>>& shuffleSequences = result.shuffles;
     std::vector<double>& shuffleWeights = result.weights;
@@ -153,7 +186,7 @@ inline ShuffleResult makeShuffles(const std::vector<std::vector<size_t>>& adjMat
     
     // Calculate permutation weights based on the multinomial coefficient formula
     auto calculateWeight = [](const std::vector<size_t>& perm, 
-                                               const std::vector<std::string>& permFingerprints) -> double {
+                               const std::vector<std::string>& permFingerprints) -> double {
         // Count occurrences of each fingerprint
         std::unordered_map<std::string, size_t> fingerprintCounts;
         for (const auto& fp : permFingerprints) {
@@ -290,7 +323,7 @@ inline std::vector<double> returnSlopeVector(Strategy strategy) {
 }
 
 inline std::vector<ParamCombination> makeCombinations(
-    const std::vector<std::vector<std::vector<size_t>>>& adjacencyMatrices, 
+    const std::vector<std::vector<std::vector<double>>>& adjacencyMatrices, 
     int replications
 ) {
     std::vector<ParamCombination> combinations;
@@ -304,7 +337,7 @@ inline std::vector<ParamCombination> makeCombinations(
     };
 
     for (const auto& adjMatrix : adjacencyMatrices) {
-        std::string adjMatrixBinary = adjMatrixToBinaryString(adjMatrix);
+        std::string adjMatrixString = adjMatrixToWeightedString(adjMatrix);
         size_t n = adjMatrix.size();
         auto shuffleResult = makeShuffles(adjMatrix, n);
         // Determine which shuffle sequences to use
@@ -325,19 +358,16 @@ inline std::vector<ParamCombination> makeCombinations(
                 for (int repl = 0; repl < replications; ++repl) {
                     combinations.push_back({
                         adjMatrix, 
-                        adjMatrixBinary, 
+                        adjMatrixString, 
                         strategy, 
                         slope, 
                         shuffleResult.shuffles,
                         shuffleResult.weights
-
                     });
                 }
             }
-                
-        
-            } 
         }
+    }
     
     return combinations;
 }

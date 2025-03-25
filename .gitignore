@@ -3,3 +3,4 @@ output/
 *.csv
 .clangd
 .cache/
+*.out

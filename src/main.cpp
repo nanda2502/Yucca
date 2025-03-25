@@ -16,8 +16,8 @@ int main(int argc, char* argv[]) {
     int adj_int = std::stoi(argv[1]);
     int num_nodes = std::stoi(argv[2]);
 
-    auto allMatrices = readAdjacencyMatrices(num_nodes);
-    std::vector<std::vector<std::vector<size_t>>> matrices(1, allMatrices[adj_int]);
+    auto allMatrices = readWeightedAdjacencyMatrices(num_nodes);
+    std::vector<std::vector<std::vector<double>>> matrices(1, allMatrices[adj_int]);
 
     // Simulate background population
     Population population(matrices[0]);
@@ -65,6 +65,8 @@ int main(int argc, char* argv[]) {
         result.successRates = successRates;
 
         accumulatedResults[idx] = result;
+        std::cout << "Completed combination " << idx + 1 << " of " << combinations.size() 
+        << " (processed " << comb.shuffleSequences.size() << " shuffles)" << '\n';
     }
 
     std::string csvHeader = "num_nodes,adj_mat,strategy,steps,step_payoff,step_transitions,slope,absorbing";

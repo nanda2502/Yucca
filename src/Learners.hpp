@@ -29,11 +29,13 @@ std::vector<double> calculateTraitFrequencies(const std::vector<std::vector<size
 class Learners {
 private:
   std::vector<double> traitPayoffs;
-  std::vector<std::vector<size_t>> adjMatrix;
+  std::vector<std::vector<double>> adjMatrix;
+  std::vector<std::vector<std::vector<double>>> adjMatrices; // adjMatrices[agent][parent][trait]. Individual matrix for each agent.
+  Dependency dependency; 
   std::vector<std::vector<size_t>> repertoires;
   std::vector<double> traitFrequencies;
   std::unordered_map<std::vector<size_t>, double, RepertoireHash>
-      stateFrequencies;
+  stateFrequencies;
   double slope;
   Strategy strategy;
 
@@ -43,7 +45,7 @@ private:
   std::vector<double> randomBaseWeights;
 
 public:
-  Learners(const std::vector<std::vector<size_t>> &adjMatrix,
+  Learners(const std::vector<std::vector<double>> &adjMatrix,
            const std::vector<std::vector<size_t>> &demoRepertoires,
            double slope, Strategy strategy,
            const std::vector<size_t> &shuffleSequence);
@@ -62,7 +64,7 @@ private:
   std::vector<double> payoffWeights();
 
   // helper functions
-  bool isLearnable(size_t trait, size_t agentIndex);
+  bool isLearnable(size_t trait, size_t agentIndex, std::mt19937& gen);
   void updateRepertoire(std::vector<double> weights, size_t agentIndex,
                         std::mt19937 &gen, bool &success);
   double calculateAgentPayoff(size_t agentIndex);

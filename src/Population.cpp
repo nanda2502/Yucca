@@ -2,8 +2,8 @@
 
 #include <random>
 
-Population::Population(const std::vector<std::vector<size_t>>& adjMatrix) 
-    : adjMatrix(adjMatrix), resetProb(0.2) // Start with a higher reset probability
+Population::Population(const std::vector<std::vector<double>>& adjMatrix) 
+    : adjMatrix(adjMatrix), dependency(Dependency::Variable), resetProb(0.2) // Start with a higher reset probability
 {
     // Initialize repertoires for 10000 agents
     const size_t numAgents = 10000;
@@ -13,6 +13,30 @@ Population::Population(const std::vector<std::vector<size_t>>& adjMatrix)
     repertoires.resize(numAgents, std::vector<size_t>(numTraits, 0));
     for (auto& repertoire : repertoires) {
         repertoire[0] = 1; // Initialize the first trait to 1 for all agents
+    }
+
+    // Initialize adjMatrices based on dependency type
+    adjMatrices.resize(numAgents);
+    if (dependency == Dependency::Fixed) {
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_real_distribution<> dist(0.0, 1.0);
+        
+        for (size_t agent = 0; agent < numAgents; ++agent) {
+            adjMatrices[agent].resize(numTraits, std::vector<double>(numTraits, 0.0));
+            for (size_t parent = 0; parent < numTraits; ++parent) {
+                for (size_t trait = 0; trait < numTraits; ++trait) {
+                    if (adjMatrix[parent][trait] > 0.0) {
+                        adjMatrices[agent][parent][trait] = (dist(gen) < adjMatrix[parent][trait]) ? 1.0 : 0.0;
+                    }
+                }
+            }
+        }
+    } else {
+        // For variable dependency, just store references to the original matrix
+        for (size_t agent = 0; agent < numAgents; ++agent) {
+            adjMatrices[agent] = adjMatrix;
+        }
     }
 }
 
@@ -87,7 +111,7 @@ void Population::learn() {
                 size_t traitToLearn = thread_traitDist(thread_gen);
                 
                 if (repertoires[agentIndex][traitToLearn] == 0) {
-                    if (isLearnable(traitToLearn, agentIndex)) {
+                    if (isLearnable(traitToLearn, agentIndex, thread_gen)) {
                         repertoires[agentIndex][traitToLearn] = 1;
                     }
                 }
@@ -108,7 +132,7 @@ void Population::learn() {
                         repertoires[agentIndex][0] = 1;
                     } else {
                         size_t traitToLearn = traitDist(gen);
-                        if (repertoires[agentIndex][traitToLearn] == 0 && isLearnable(traitToLearn, agentIndex)) {
+                        if (repertoires[agentIndex][traitToLearn] == 0 && isLearnable(traitToLearn, agentIndex, gen)) {
                             repertoires[agentIndex][traitToLearn] = 1;
                         }
                     }
@@ -126,15 +150,30 @@ void Population::learn() {
     }
 }
 
-bool Population::isLearnable(size_t trait, size_t agentIndex) {
+bool Population::isLearnable(size_t trait, size_t agentIndex, std::mt19937& gen) {
     const std::vector<size_t>& focalTraits = repertoires[agentIndex];
-
-    for (size_t parent = 0; parent < adjMatrix[trait].size(); ++parent) {
-        if (adjMatrix[parent][trait] == 1) {  
-            if (focalTraits[parent] == 0) {  
-                return false;
+  
+    if (dependency == Dependency::Fixed) {
+        // For fixed dependency, use the pre-generated binary matrix
+        for (size_t parent = 0; parent < adjMatrices[agentIndex].size(); ++parent) {
+            if (adjMatrices[agentIndex][parent][trait] > 0.0 && focalTraits[parent] == 0) {
+                return false; // Required prerequisite is missing
+            }
+        }
+    } else {
+        // For variable dependency, use probabilistic check with original weights
+        std::uniform_real_distribution<> dist(0.0, 1.0);
+        for (size_t parent = 0; parent < adjMatrix.size(); ++parent) {
+            double weight = adjMatrix[parent][trait];
+            if (weight > 0.0) {  // If there is any dependency
+                if (focalTraits[parent] == 0) {  // Agent doesn't have the prerequisite
+                    // Probabilistic check based on edge weight
+                    if (dist(gen) < weight) {
+                        return false; // Required prerequisite is missing
+                    }
+                }
             }
         }
     }
     return true;
-}; 
+}

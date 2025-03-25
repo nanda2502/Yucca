@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -p genoa
-#SBATCH --array=0-48
+#SBATCH --array=0-47
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=192
@@ -16,5 +16,5 @@ task_id=${SLURM_ARRAY_TASK_ID}
 # Check if the output already exists
 if [ ! -f "../output/expected_steps_${task_id}.csv.gz" ]; then
     # Run the task
-    ./yucca "$task_id" 50
+    ./yucca "$task_id" 30
 fi

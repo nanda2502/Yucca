@@ -44,6 +44,10 @@ private:
   std::vector<double> payoffBaseWeights;
   std::vector<double> randomBaseWeights;
 
+  // Memoization caches for proximal and prestige weights
+  std::unordered_map<std::vector<size_t>, std::vector<double>, RepertoireHash> proximalWeightsCache;
+  std::unordered_map<std::vector<size_t>, std::vector<double>, RepertoireHash> prestigeWeightsCache;
+
 public:
   Learners(const std::vector<std::vector<double>> &adjMatrix,
            const std::vector<std::vector<size_t>> &demoRepertoires,

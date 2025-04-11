@@ -6,7 +6,7 @@
         "type": "cppdbg",
         "request": "launch",
         "program": "${workspaceFolder}/build/yucca",
-        "args": ["500"],
+        "args": ["0", "25"],
         "stopAtEntry": false,
         "cwd": "${workspaceFolder}/build",
         "environment": [],

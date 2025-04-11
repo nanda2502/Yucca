@@ -20,6 +20,12 @@ std::vector<double> Learners::proximalWeights(
     // Get the repertoire for the specified agent
     const auto& repertoire = repertoires[agentIndex];
     
+    // Check if we have cached results for this repertoire
+    auto it = proximalWeightsCache.find(repertoire);
+    if (it != proximalWeightsCache.end()) {
+        return it->second;
+    }
+    
     std::vector<double> w_star(repertoire.size(), 0.0);
     
     // Loop over each trait
@@ -38,13 +44,21 @@ std::vector<double> Learners::proximalWeights(
         }
     }
     
+    // Cache the results before returning
+    proximalWeightsCache[repertoire] = w_star;
     return w_star;
 }
 
 std::vector<double> Learners::prestigeWeights(
     int agentIndex
 ) {
-    auto repertoire = repertoires[agentIndex];
+    const auto& repertoire = repertoires[agentIndex];
+    
+    // Check if we have cached results for this repertoire
+    auto it = prestigeWeightsCache.find(repertoire);
+    if (it != prestigeWeightsCache.end()) {
+        return it->second;
+    }
 
     std::vector<double> w_star(repertoire.size(), 0.0);
     
@@ -74,6 +88,9 @@ std::vector<double> Learners::prestigeWeights(
             }
         }
     }
+
+    // Cache the results before returning
+    prestigeWeightsCache[repertoire] = w_star;
     return w_star;
 }
 
